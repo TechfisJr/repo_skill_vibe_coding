@@ -18,12 +18,16 @@ Complete directory of all skills organized by domain.
 - [AI-AGENT-GUIDE.md](./frontend/style/AI-AGENT-GUIDE.md) — **Dedicated AI agent workflow guide**
 - [README.md](./frontend/style/README.md) — Comprehensive overview
 
+#### Project-Wide Constraints
+- [CONSTRAINT.md](./frontend/style/CONSTRAINT.md) — **Backend & Frontend standards** (routes, services, repos, RBAC, validation, logging, TypeScript, components)
+
 **Features:**
 - ✅ AI Agent Implementation Guides
 - ✅ Copy-paste token definitions
 - ✅ Validation checklists
 - ✅ Common refactoring patterns
 - ✅ 99%+ compliance target
+- ✅ Backend/Frontend enforcement standards
 
 ### [`Frontend/React`](./frontend/react/)
 *Coming soon...*
@@ -93,6 +97,7 @@ Complete directory of all skills organized by domain.
 | IKIGAI Admin Style | Frontend / Style | Design System | ✅ Done | ✅✅ |
 | IKIGAI Layout Rules | Frontend / Style | Layout Guide | ✅ Done | ✅✅ |
 | IKIGAI Tokens | Frontend / Style | Token Definitions | ✅ Done | ✅✅ |
+| Constraints (BE/FE) | Project-Wide | Standards & Enforcement | ✅ Done | ✅ |
 
 ---
 
