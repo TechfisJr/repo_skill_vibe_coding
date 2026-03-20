@@ -10,6 +10,8 @@
 **Target**: Enterprise Admin Dashboard  
 **Stack**: React + MUI v5 + Tailwind CSS + Iconify  
 
+**Layout Mode**: Fixed layout (desktop shell fixed, responsive adaptation on smaller screens).
+
 ---
 
 ## 1. Design Philosophy
@@ -74,6 +76,17 @@ export const COLORS = {
 
   border:          '#e0e0e0',
   divider:         '#e5e7eb',
+};
+```
+
+### 2.1.1 IKIGAI Unified Color Baseline (for this repo)
+
+```typescript
+// Use these as [PROJECT_*] when implementing IKIGAI screens
+const IKIGAI_COLORS = {
+  PROJECT_PRIMARY: '#0e4831',
+  PROJECT_ACCENT: '#afc932',
+  PROJECT_HEADER_BG: '#0e4831',
 };
 ```
 
@@ -232,6 +245,38 @@ export const TRANSITIONS = {
                               .content-grid,
                               .form-grid    { grid-template-columns: 1fr; } }
 ```
+
+### 3.5 Responsive Rules (Fixed Layout Mode)
+
+```typescript
+// Fixed shell on desktop, adaptive shell on smaller screens
+const FIXED_LAYOUT_RESPONSIVE = {
+  desktop: {
+    minWidth: 1200,
+    sidebar: 'fixed',
+    header: 'fixed',
+    contentOffset: 'sidebar + header',
+  },
+  tablet: {
+    minWidth: 900,
+    maxWidth: 1199,
+    sidebar: 'collapsible',
+    header: 'fixed',
+    contentPadding: '16px-24px',
+  },
+  mobile: {
+    maxWidth: 899,
+    sidebar: 'drawer',
+    header: 'sticky',
+    contentPadding: '12px-16px',
+    grids: 'single-column-first',
+  },
+};
+```
+
+- Keep information hierarchy unchanged across breakpoints (header → toolbar → content → footer actions).
+- On mobile, avoid fixed secondary panels that block table/form readability.
+- Horizontal scroll is only allowed for dense data tables, never for the entire page shell.
 
 ---
 
@@ -482,7 +527,7 @@ const METRIC_COLORS = {
   active:     COLORS.success,       // green
   pending:    COLORS.warning,       // orange
   closed:     COLORS.textMuted,     // gray
-  primary:    COLORS.primary,       // blue
+  primary:    COLORS.primary,       // dark green
 };
 
 // Card style
@@ -791,7 +836,7 @@ const VALIDATION = {
 
 ```typescript
 // Pattern 1: Color
-// BEFORE: <Button style={{ backgroundColor: '#5569ff' }}>
+// BEFORE: <Button style={{ backgroundColor: '#0e4831' }}>
 // AFTER:  <Button sx={{ backgroundColor: COLORS.primary }}>
 
 // Pattern 2: Spacing
@@ -820,7 +865,7 @@ const VALIDATION = {
 
 | Token | Default Value | Project Value |
 |---|---|---|
-| Primary Color | `#5569ff` | `[PROJECT_PRIMARY]` |
+| Primary Color | `#0e4831` | `[PROJECT_PRIMARY]` |
 | Accent / CTA Button | `#afc932` | `[PROJECT_ACCENT]` |
 | Brand / Header BG | `#0e4831` | `[PROJECT_HEADER_BG]` |
 | Success | `#57CA22` | (unchanged) |

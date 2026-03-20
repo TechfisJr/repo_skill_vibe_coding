@@ -3,6 +3,8 @@
 ## Objective
 This document allows front-end developers to **freely design layouts** for each screen while preserving the TechFis visual identity.
 
+**Layout Mode**: Flexible layout (structure can change, tokens cannot).
+
 ---
 
 ## 1) Core Principles
@@ -26,16 +28,20 @@ This document allows front-end developers to **freely design layouts** for each 
 - Body: 14-16 / 400-500
 
 ### Color (Locked)
-- Primary: `#0e4831`
-- Dark Green: `#0e4831`
-- Lime Green: `#afc932`
-- Secondary: `#6E759F`
+- Primary / Brand: `#0e4831`
+- Accent / CTA: `#afc932`
+- Secondary Text: `#6E759F`
+- Primary Text: `#223354`
+- Muted Text: `#999999`
 - Success: `#57CA22`
 - Warning: `#FFA319`
 - Error: `#FF1943`
 - Info: `#33C2FF`
 - Page Background: `#f2f5f9`
 - Card Background: `#ffffff`
+- Modal Background: `#f9fbff`
+- Border: `#e0e0e0`
+- Divider: `#e5e7eb`
 
 ### Border Radius (Locked)
 - Input: 6px
@@ -68,6 +74,28 @@ This document allows front-end developers to **freely design layouts** for each 
 - Reorganize filter/sort/action areas to optimize workflow.
 - Choose suitable page patterns: List / Detail / Dashboard or hybrid.
 - Optimize responsiveness as long as tokens and component styles remain unchanged.
+
+### Required Responsive Baseline (Flexible Mode)
+
+```typescript
+// Standard breakpoints for all flexible layouts
+const BREAKPOINTS = {
+  xs: 0,    // mobile
+  sm: 600,  // large mobile / small tablet
+  md: 900,  // tablet
+  lg: 1200, // desktop
+  xl: 1536,
+};
+
+// Required adaptive behavior
+// xs-sm: single-column first, stacked actions, full-width inputs/buttons
+// md:    two-column layout allowed when readability is preserved
+// lg+:   2-3 columns optimized for workflow efficiency
+```
+
+- Mobile-first implementation is required (`xs` first, then scale up).
+- At `xs-sm`, avoid horizontal scrolling for forms/tables/cards.
+- Sticky toolbars/summary blocks are allowed only when they do not hide content on small screens.
 
 ### Not Allowed
 - Do not use colors outside the system palette.
@@ -274,9 +302,9 @@ class LayoutValidator {
   checkColors() {
     const usedColors = extractColorsFromCSS();
     const allowedPalette = [
-      '#5569ff', '#0e4831', '#afc932', '#6E759F',
+      '#0e4831', '#afc932', '#6E759F', '#223354', '#999999',
       '#57CA22', '#FFA319', '#FF1943', '#33C2FF',
-      '#f2f5f9', '#ffffff', '#ddd'
+      '#f2f5f9', '#ffffff', '#f9fbff', '#e0e0e0', '#e5e7eb'
     ];
     return usedColors.every(color => allowedPalette.includes(color));
   }
@@ -338,7 +366,7 @@ class LayoutValidator {
 
 ### To Apply This Style System Across Project:
 
-1. **Import Tokens** (from IKIGAI-admin-style.md Section 13)
+1. **Import Tokens** (from IKIGAI-admin-style.md Section 11)
    ```typescript
    // Copy-paste token definitions
    export const THEME_COLORS = { ... };

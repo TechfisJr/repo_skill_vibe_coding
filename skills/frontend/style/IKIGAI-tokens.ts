@@ -17,7 +17,7 @@
 
 export const IKIGAI_COLORS = {
   // Primary (Blue)
-  primary: '#5569ff',
+  primary: '#004831',
   primaryLight: '#7a8cff',
   primaryDark: '#2e4ccc',
   primaryLighter: 'rgba(85, 105, 255, 0.1)',
