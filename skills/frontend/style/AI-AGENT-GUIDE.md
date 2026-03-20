@@ -109,7 +109,7 @@ Success             → #57CA22  (IKIGAI_COLORS.success)
 Error/Delete        → #FF1943  (IKIGAI_COLORS.error)
 Warning             → #FFA319  (IKIGAI_COLORS.warning)
 Info                → #33C2FF  (IKIGAI_COLORS.info)
-Text Primary        → #223354  (IKIGAI_COLORS.textPrimary)
+Text Primary        → #0e4831  (IKIGAI_COLORS.textPrimary)
 Background          → #f2f5f9  (IKIGAI_COLORS.background)
 White/Surface       → #ffffff  (IKIGAI_COLORS.surface)
 ```
@@ -258,7 +258,7 @@ Agents should aim for:
 ```typescript
 // Hardcoded colors
 backgroundColor: '#5569ff'
-color: '#223354'
+color: '#0e4831'
 
 // Arbitrary spacing  
 padding: '14px'

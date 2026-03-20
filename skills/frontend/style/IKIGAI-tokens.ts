@@ -62,7 +62,7 @@ export const IKIGAI_COLORS = {
   secondaryLighter: 'rgba(110, 117, 159, 0.1)',
 
   // Text Colors
-  textPrimary: '#223354',
+  textPrimary: '#0e4831',
   textSecondary: '#6E759F',
   textMuted: '#999999',
   textInverse: '#FFFFFF',

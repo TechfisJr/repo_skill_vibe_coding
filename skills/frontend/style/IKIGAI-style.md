@@ -31,7 +31,7 @@ This document allows front-end developers to **freely design layouts** for each 
 - Primary / Brand: `#0e4831`
 - Accent / CTA: `#afc932`
 - Secondary Text: `#6E759F`
-- Primary Text: `#223354`
+- Primary Text: `#0e4831`
 - Muted Text: `#999999`
 - Success: `#57CA22`
 - Warning: `#FFA319`
@@ -302,7 +302,7 @@ class LayoutValidator {
   checkColors() {
     const usedColors = extractColorsFromCSS();
     const allowedPalette = [
-      '#0e4831', '#afc932', '#6E759F', '#223354', '#999999',
+      '#0e4831', '#afc932', '#6E759F', '#0e4831', '#999999',
       '#57CA22', '#FFA319', '#FF1943', '#33C2FF',
       '#f2f5f9', '#ffffff', '#f9fbff', '#e0e0e0', '#e5e7eb'
     ];

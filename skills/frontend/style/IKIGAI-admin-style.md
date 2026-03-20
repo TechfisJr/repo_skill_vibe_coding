@@ -65,7 +65,7 @@ export const COLORS = {
   infoDark:        '#0090cc',
 
   // --- Neutral ---
-  textPrimary:     '#223354',
+  textPrimary:     '#0e4831',
   textSecondary:   '#6E759F',
   textMuted:       '#999999',
 
@@ -523,7 +523,7 @@ const CHIP_STYLE = {
 ```typescript
 // Metric color by type (adapt values per project)
 const METRIC_COLORS = {
-  total:      COLORS.textPrimary,   // #223354 dark
+  total:      COLORS.textPrimary,   // #0e4831 dark
   active:     COLORS.success,       // green
   pending:    COLORS.warning,       // orange
   closed:     COLORS.textMuted,     // gray
@@ -620,7 +620,7 @@ body {
 
 | Role | Token | Default |
 |---|---|---|
-| Primary text | `COLORS.textPrimary` | `#223354` |
+| Primary text | `COLORS.textPrimary` | `#0e4831` |
 | Secondary text | `COLORS.textSecondary` | `#6E759F` |
 | Muted / hint | `COLORS.textMuted` | `#999` |
 | Links | `COLORS.primary` | `[PROJECT_PRIMARY]` |
@@ -872,7 +872,7 @@ const VALIDATION = {
 | Error | `#FF1943` | (unchanged) |
 | Warning | `#FFA319` | (unchanged) |
 | Info | `#33C2FF` | (unchanged) |
-| Primary Text | `#223354` | (unchanged) |
+| Primary Text | `#0e4831` | (unchanged) |
 | Secondary Text | `#6E759F` | (unchanged) |
 | Page Background | `#f2f5f9` | (unchanged) |
 | Card Background | `#ffffff` | (unchanged) |
@@ -899,7 +899,7 @@ export const COLORS = {
   error:         '#FF1943',
   warning:       '#FFA319',
   info:          '#33C2FF',
-  textPrimary:   '#223354',
+  textPrimary:   '#0e4831',
   textSecondary: '#6E759F',
   textMuted:     '#999999',
   bgPage:        '#f2f5f9',
