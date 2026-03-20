@@ -26,7 +26,7 @@ This document allows front-end developers to **freely design layouts** for each 
 - Body: 14-16 / 400-500
 
 ### Color (Locked)
-- Primary: `#5569ff`
+- Primary: `#0e4831`
 - Dark Green: `#0e4831`
 - Lime Green: `#afc932`
 - Secondary: `#6E759F`

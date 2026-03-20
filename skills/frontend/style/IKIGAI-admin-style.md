@@ -1,7 +1,7 @@
 # Admin Design System
 <!-- PROJECT-SPECIFIC: Replace all [PROJECT_*] placeholders before use -->
 <!-- PROJECT_NAME: Your project name -->
-<!-- PROJECT_PRIMARY: Primary brand color (default: #5569ff) -->
+<!-- PROJECT_PRIMARY: Primary brand color (default: #0e4831) -->
 <!-- PROJECT_ACCENT: Accent/CTA color (default: #afc932) -->
 <!-- PROJECT_HEADER_BG: Header/sidebar brand color (default: #0e4831) -->
 <!-- PROJECT_FONT: Primary font family (default: SVN-Gilroy) -->
@@ -38,7 +38,7 @@
 export const COLORS = {
   // --- Brand ---
   // [PROJECT_PRIMARY]: Main interactive color (links, active states, checkboxes)
-  primary:         '[PROJECT_PRIMARY]',    // default: #5569ff
+  primary:         '[PROJECT_PRIMARY]',    // default: #0e4831
   primaryLight:    '[PROJECT_PRIMARY_LIGHT]',
   primaryDark:     '[PROJECT_PRIMARY_DARK]',
 
