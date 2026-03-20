@@ -17,37 +17,74 @@
 
 ### Global Layout Structure
 ```
-┌─────────────────────────────────────────────┐
-│         Header (80px, Dark Green)           │
-├──────────┬──────────────────────────────────┤
-│          │                                  │
-│          │    Content Area                  │
-│ Sidebar  │    (Rounded card, white bg)     │
-│ (290px)  │    Floating above header        │
-│          │                                  │
-│          │                                  │
-└──────────┴──────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│  Header (80px, Dark Green) with Logo & Language Selector     │
+├────────────┬─────────────────────────────────────────────────┤
+│            │                                                  │
+│ Sidebar    │  Metrics Row (KPI cards, horizontal)           │
+│ (200-250px)│  ├─ Total, Active, Draft, Closed, Applicants  │
+│            │                                                  │
+│ Menu Items │  Toolbar Section (Search, Filter, Create CTA) │
+│ (Vertical) │  ├─ Search input                               │
+│            │  ├─ Filter dropdown                            │
+│            │  └─ [Create Campaign] button (Lime Green)      │
+│            │                                                  │
+│            │  Data Table (White card)                        │
+│            │  ├─ Sortable columns                           │
+│            │  ├─ Row actions (View, Edit, Delete)          │
+│            │  └─ Pagination at bottom                       │
+│            │                                                  │
+└────────────┴─────────────────────────────────────────────────┘
 ```
 
 ### Key Measurements
-- **Sidebar Width**: 290px (fixed position on left, hidden below lg breakpoint)
-- **Header Height**: 80px (fixed position, dark green background)
+- **Sidebar Width**: 200-250px (fixed left, can collapse on mobile)
+- **Header Height**: 80px (fixed top, dark green background `#0e4831`)
+- **Header Elements**: Logo, platform name, language selector (EN | VI | JP)
 - **Header Color**: `#0e4831` (dark green)
-- **Body Background**: `#f2f5f9` (light gray)
-- **Content Container**: White card with `rounded-3xl` (24px), floating above header
-- **Viewport Spacing**: ~16px margins on left/right of content card
+- **Body Background**: `#f2f5f9` (light gray, behind sidebar)
+- **Content Area**: Main white card container with padding
+- **Main Content Padding**: 24-32px (left, right, bottom)
+- **Content Top Margin**: 16-20px below header for visual separation
+
+### Metrics Row (KPI Cards)
+- **Layout**: Horizontal grid (5 columns on desktop)
+- **Spacing**: 16px gap between metric cards
+- **Card Style**: White background, subtle shadow, padding 16px
+- **Metric Number**: Large, bold (28-32px), primary colors based on status
+  - Total: Dark blue (`#223354`)
+  - Active: Success green (`#57CA22`)
+  - Draft: Warning orange (`#FFA319`)
+  - Closed: Dark gray (`#999`)
+  - Applicants: Primary blue (`#5569ff`)
+- **Icon Position**: Left side (20px icon)
+- **Card Responsive**: Stack to 2-3 columns on tablet, 1 column on mobile
+
+### Toolbar Section
+- **Layout**: Flex row with space-between
+- **Left Side**: Search input + Filter dropdown
+- **Right Side**: [Create Campaign] button (lime green `#afc932`)
+- **Search Input**: 
+  - Width: 300px min (responsive)
+  - Placeholder: "Search campaign name or description..."
+  - Icon: Magnifying glass (16px)
+- **Filter Dropdown**: Dark green text, dropdown arrow
+- **Button**: `[+ Create Campaign]` (lime green, 8px padding, 6px radius)
 
 ### Page Container Rules
-- Content is rendered inside `<main>` element positioned absolutely
-- Main content overlaps header by ~16px (creates visual depth)
-- Content area height: `calc(100vh - 6rem)` with auto overflow
-- All page content is wrapped in white cards with consistent shadows
+- Sidebar is sticky/fixed on left (hidden below lg breakpoint)
+- Main content flows inside a scrollable container (if content height > viewport)
+- Content area height: `calc(100vh - 80px - 32px)` (header height minus padding)
+- All page content wrapped in white card(s) with consistent box-shadow
+- No horizontal scroll on desktop; content fits within viewport after sidebar
 
 ### Section Spacing Patterns
-- **Section Gap**: 24px vertical spacing between major sections
-- **Padding**: Sections typically use 24-32px padding
-- **Group Gap**: 12px between form groups within a section
-- **Row Gap**: 8px between list items within a group
+- **Metrics Row Gap**: 16px (horizontal)
+- **Toolbar to Table Gap**: 24px (vertical)
+- **Section Gap**: 24px vertical spacing between major content blocks
+- **Card Padding**: 24-32px (standard)
+- **Group Gap**: 12px between form groups
+- **Item to Item**: 8px (list items, rows)
 
 ---
 
@@ -841,6 +878,298 @@ import { Icon } from '@iconify/react';
 
 ---
 
+## 13. AI Agent Implementation Guide
+
+### How to Use This Document as an Agent
+
+This section prepares you (AI agent) to implement the IKIGAI design system across the entire codebase.
+
+#### 1. **Reading Order for Agents**
+1. Start with "Summary Table" (Section below) - Get all tokens in one view
+2. Read "Token Quick Reference" - For copy-paste values
+3. Review "Component Templates" - Ready-to-use code blocks
+4. Check "Pre-Flight Validation" - Ensure compliance before commit
+
+#### 2. **Task Workflow for Agents**
+```
+TASK START
+├─ Read this design system file fully
+├─ Extract all color/spacing/radius tokens
+├─ Check existing code for non-compliance
+├─ Plan refactor strategy
+├─ Apply changes incrementally
+│  ├─ Update theme setup first
+│  ├─ Refactor component styles
+│  ├─ Update page layouts
+│  └─ Test responsive behavior
+├─ Run validation checklist
+└─ TASK COMPLETE
+```
+
+#### 3. **Priority Enforcement Levels**
+
+**STRICT** (Cannot be broken):
+- ✅ Color palette - Must come from theme only
+- ✅ Font family - SVN-Gilroy globally
+- ✅ Border radius set - 6, 8, 10, 12, 16, 24px only
+- ✅ Spacing scale - 4, 8, 12, 16, 24, 32, 40px multiples
+- ✅ Transition duration - Always .2s
+
+**FLEXIBLE** (Can adapt per context):
+- Layout structure (1, 2, 3 columns)
+- Component organization
+- Content card grouping
+- Desktop vs mobile behavior (but keep sidebar 290px when visible)
+
+#### 4. **For Each Component You Modify**
+
+```typescript
+// STEP 1: Check theme imports
+import { useTheme } from '@mui/material';
+
+// STEP 2: Get color from theme (NEVER hardcode)
+const theme = useTheme();
+const primaryColor = theme.palette.primary.main;
+const errorColor = theme.palette.error.main;
+
+// STEP 3: Apply spacing from scale
+// ✅ GOOD: p-2 (8px), p-3 (12px), p-4 (16px)
+// ❌ BAD: p-3.5 (14px), p-5 (20px)
+
+// STEP 4: Use consistent border radius
+// ✅ GOOD: rounded-md (6px), rounded-lg (8px), rounded-2xl (16px)
+// ❌ BAD: rounded-sm (4px), rounded-xl (12px), rounded-3xl (24px)
+
+// STEP 5: Add transition to interactions
+// ✅ GOOD: transition: all .2s ease;
+// ❌ BAD: transition: color 0.3s linear;
+```
+
+#### 5. **When Creating New Components**
+
+**Question Tree**:
+```
+Is it a standard UI element?
+├─ YES → Use MUI component (@mui/material)
+└─ NO → Use Tailwind + theme tokens
+
+Is MUI component sufficient?
+├─ YES → Use directly with sx prop
+└─ NO → Wrap it with custom styling (via sx, not useState)
+
+Need custom colors?
+├─ YES → Use theme.palette.[semantic name]
+└─ NO → Use default (inherit from parent)
+
+Components to create:
+├─ ButtonWithIcon   → Use theme colors + Iconify
+├─ LabeledInput    → Wrap TextField with label
+├─ DialogHeader    → Consistent title + close icon
+├─ DataTable       → MUI Table + custom header style
+└─ StatusBadge     → MUI Chip with semantic colors
+```
+
+#### 6. **Color Application Algorithm**
+
+```javascript
+// ABSOLUTE RULE - Use this algorithm for EVERY color choice
+
+const getColorForAction = (action) => {
+  switch(action) {
+    case 'primary':
+    case 'save':
+    case 'submit': return theme.palette.primary.main;      // #5569ff
+    
+    case 'success':
+    case 'confirm': return theme.palette.success.main;     // #57CA22
+    
+    case 'danger':
+    case 'delete':
+    case 'error':   return theme.palette.error.main;       // #FF1943
+    
+    case 'warning': return theme.palette.warning.main;     // #FFA319
+    
+    case 'info':
+    case 'help':    return theme.palette.info.main;        // #33C2FF
+    
+    case 'secondary':
+    case 'muted':   return theme.palette.secondary.main;   // #6E759F
+    
+    case 'accent':
+    case 'add':     return '#afc932';                       // Lime Green
+    
+    default:        return theme.palette.text.primary;     // #223354
+  }
+};
+
+// NEVER do this:
+// ❌ const color = '#5569ff';  (hardcoded)
+// ❌ const color = props.color;  (passed via props)
+
+// ALWAYS do this:
+// ✅ const color = theme.palette.primary.main;
+// ✅ const color = getColorForAction(action);
+```
+
+#### 7. **Spacing Application Algorithm**
+
+```javascript
+// ABSOLUTE RULE - Use this spacing grid
+
+const SPACING = {
+  // Micro
+  xs: '4px',      // p-1, gap-1
+  sm: '8px',      // p-2, gap-2
+  md: '12px',     // p-3, gap-3
+  lg: '16px',     // p-4, gap-4
+  xl: '24px',     // p-6, gap-6
+  '2xl': '32px',  // p-8, gap-8
+  '3xl': '40px',  // p-10, gap-10
+};
+
+// Context-dependent spacing:
+const STANDARD_GAPS = {
+  sectionToSection: '24px',    // margin-y between <section>s
+  cardToCard: '20px',          // gap in grid
+  groupInForm: '12px',         // gap between form groups
+  itemToItem: '8px',           // gap between list items
+  labelToInput: '4px',         // space-y-1 (label above input)
+  iconToText: '8px',           // gap between icon and label
+};
+
+// NEVER mix arbitrary spacing:
+// ❌ p-[14px], gap-[18px], m-[22px]
+// ✅ Only use values from SPACING object
+```
+
+#### 8. **Border Radius Rules for Agents**
+
+```typescript
+// ABSOLUTE SET - Only these 6 values allowed:
+
+const BORDER_RADIUS = {
+  'rounded-md': '6px',      // Inputs, small buttons, icon buttons
+  'rounded-lg': '8px',      // Buttons, select dropdowns
+  'rounded-xl': '12px',     // Card internal elements (rare)
+  '2xl': '16px',            // Modal dialogs
+  '3xl': '24px',            // Main content cards, containers
+  'rounded-full': '9999px', // Chips, badges, round buttons
+};
+
+// Applied to:
+const RADIUS_USAGE = {
+  input: '6px',                    // All form inputs
+  button: '6-8px',                 // Regular buttons
+  iconButton: '8px',               // Icon buttons
+  chip: '100px' (use rounded-full),
+  card: '10px',                    // Standard cards
+  contentContainer: '24px',        // Main container
+  modal: '16px',                   // Dialog/modal
+  badge: 'rounded-full',           // Status badges
+};
+
+// WRONG:
+// ❌ borderRadius: '5px'
+// ❌ className="rounded-sm"
+// ❌ borderRadius: '7px'
+
+// CORRECT:
+// ✅ borderRadius: '6px'
+// ✅ className="rounded-md"
+// ✅ borderRadius: '8px'
+```
+
+#### 9. **Validation Checklist for Agents**
+
+Before submitting code, run this checklist:
+
+```typescript
+class StyleValidation {
+  // Check every color reference
+  validateColors() {
+    const FORBIDDEN = ['#fff', '#000', '#aaa', '#123456'];
+    // Scan code for hardcoded hex values
+    // At least 95% should use theme.palette.*
+  }
+
+  // Check every spacing value
+  validateSpacing() {
+    const ALLOWED = [4, 8, 12, 16, 24, 32, 40];
+    // All padding/margin must be multiple of these
+    // Percentage and vw/vh allowed for responsive
+  }
+
+  // Check border radius
+  validateRadius() {
+    const ALLOWED = ['6px', '8px', '10px', '12px', '16px', '24px'];
+    // All borderRadius must match exactly
+  }
+
+  // Check transitions
+  validateTransitions() {
+    // All interactive elements must have: transition: all .2s ease;
+    // No other durations allowed (0.3s, 0.15s, etc.)
+  }
+
+  // Check font
+  validateFont() {
+    // Global font-family must be SVN-Gilroy
+    // No individual component overrides
+  }
+
+  // Check MUI usage
+  validateMUIUsage() {
+    // Prefer MUI components for standard UI
+    // Custom styling via sx prop, not inline styles
+  }
+}
+```
+
+#### 10. **Common Refactoring Patterns**
+
+**Pattern 1: Hardcoded Color → Theme Color**
+```typescript
+// BEFORE
+<Button style={{ backgroundColor: '#5569ff' }}>
+
+// AFTER
+<Button sx={{ backgroundColor: theme.palette.primary.main }}>
+```
+
+**Pattern 2: Arbitrary Spacing → Scale**
+```typescript
+// BEFORE
+<Box sx={{ padding: '14px', marginBottom: '20px' }}>
+
+// AFTER
+<Box sx={{ p: 3, mb: 6 }}>  // 12px and 24px respectively
+```
+
+**Pattern 3: Inconsistent Radius → System Radius**
+```typescript
+// BEFORE
+<Card sx={{ borderRadius: '12px' }}>
+
+// AFTER
+<Card sx={{ borderRadius: '10px' }}>  // Standard card radius
+```
+
+**Pattern 4: Missing Transition → Add Standard**
+```typescript
+// BEFORE
+<Button sx={{ '&:hover': { backgroundColor: newColor } }}>
+
+// AFTER
+<Button sx={{ 
+  '&:hover': { 
+    backgroundColor: newColor,
+    transition: 'all .2s ease'
+  } 
+}}>
+```
+
+---
+
 ## Summary Table
 
 | Element | Value | Notes |
@@ -862,6 +1191,98 @@ import { Icon } from '@iconify/react';
 
 ---
 
-**Last Updated**: 2026-03-19  
-**Status**: Design System Locked - No changes without review  
+## Token Quick Reference (Copy-Paste Ready)
+
+### Color Tokens
+```javascript
+// IKIGAI Theme Colors - Use these ONLY
+export const THEME_COLORS = {
+  // Primary (Blue)
+  primary: '#5569ff',
+  primaryLight: '#7a8cff',
+  primaryDark: '#2e4ccc',
+  
+  // Action (Lime)
+  accent: '#afc932',
+  accentLight: '#c2d947',
+  accentDark: '#90a825',
+  
+  // Status
+  success: '#57CA22',
+  error: '#FF1943',
+  warning: '#FFA319',
+  info: '#33C2FF',
+  
+  // Semantic (Dark Green)
+  darkGreen: '#0e4831',
+  darkGreenLight: '#1a6d47',
+  darkGreenDark: '#092d1f',
+  
+  // Neutral
+  secondary: '#6E759F',
+  text: '#223354',
+  textSecondary: '#6E759F',
+  textMuted: '#999999',
+  background: '#f2f5f9',
+  card: '#ffffff',
+  border: '#ddd',
+  divider: '#e5e7eb'
+};
+```
+
+### Spacing Tokens
+```javascript
+// IKIGAI Spacing Scale
+export const SPACING = {
+  xs: '4px',
+  sm: '8px',
+  md: '12px',
+  lg: '16px',
+  xl: '24px',
+  '2xl': '32px',
+  '3xl': '40px'
+};
+
+// Common gaps
+export const GAPS = {
+  sectionGap: '24px',
+  cardGap: '20px',
+  formGroupGap: '12px',
+  itemGap: '8px',
+  labelInputGap: '4px',
+  iconTextGap: '8px'
+};
+```
+
+### Border Radius Tokens
+```javascript
+// IKIGAI Border Radiuses
+export const BORDER_RADIUS = {
+  sm: '6px',    // inputs, small elements
+  md: '8px',    // buttons, dropdowns
+  lg: '10px',   // cards
+  xl: '12px',   // internal card elements
+  '2xl': '16px', // modals
+  '3xl': '24px', // main containers
+  full: '9999px' // chips, badges
+};
+```
+
+### Transition Tokens
+```javascript
+// IKIGAI Motion
+export const TRANSITIONS = {
+  standard: 'all 0.2s ease',
+  fast: 'all 0.1s ease',
+  slow: 'all 0.3s ease'
+};
+
+// ALWAYS use 'standard' for interactive elements
+```
+
+---
+
+**Last Updated**: 2026-03-20  
+**Status**: Design System Locked - AI-Ready  
+**Version**: 2.0 (AI Agent Edition)  
 **Authority**: Senior Design System Architect

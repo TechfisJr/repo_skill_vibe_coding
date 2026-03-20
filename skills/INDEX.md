@@ -7,7 +7,23 @@ Complete directory of all skills organized by domain.
 ## 🎨 Frontend
 
 ### [`Frontend/Style`](./frontend/style/)
-- [FE-CREDIT-style-guide.md](./frontend/style/FE-CREDIT-style-guide.md) — Comprehensive style guide for FE CREDIT partner interface
+
+#### FE-CREDIT Style Guide
+- [FE-CREDIT-style-guide.md](./frontend/style/FE-CREDIT-style-guide.md) — Brand style guide (20 sections, 4000+ lines)
+
+#### IKIGAI Design System (Admin) - **AI-READY** ⭐
+- [IKIGAI-admin-style.md](./frontend/style/IKIGAI-admin-style.md) — Complete design system (12 sections + **AI Agent Implementation Guide in Section 13**)
+- [IKIGAI-style.md](./frontend/style/IKIGAI-style.md) — Flexible layout rules (**AI Agent sections 7-10**)
+- [IKIGAI-tokens.ts](./frontend/style/IKIGAI-tokens.ts) — **TypeScript token definitions (ready-to-copy)**
+- [AI-AGENT-GUIDE.md](./frontend/style/AI-AGENT-GUIDE.md) — **Dedicated AI agent workflow guide**
+- [README.md](./frontend/style/README.md) — Comprehensive overview
+
+**Features:**
+- ✅ AI Agent Implementation Guides
+- ✅ Copy-paste token definitions
+- ✅ Validation checklists
+- ✅ Common refactoring patterns
+- ✅ 99%+ compliance target
 
 ### [`Frontend/React`](./frontend/react/)
 *Coming soon...*
@@ -71,10 +87,37 @@ Complete directory of all skills organized by domain.
 
 ## 🔍 Quick Search
 
-| Skill | Category | Status |
-|-------|----------|--------|
-| FE-CREDIT Style Guide | Frontend / Style | ✅ Done |
+| Skill | Category | Type | Status | AI-Ready |
+|-------|----------|------|--------|----------|
+| FE-CREDIT Style Guide | Frontend / Style | Brand Guidelines | ✅ Done | ✅ |
+| IKIGAI Admin Style | Frontend / Style | Design System | ✅ Done | ✅✅ |
+| IKIGAI Layout Rules | Frontend / Style | Layout Guide | ✅ Done | ✅✅ |
+| IKIGAI Tokens | Frontend / Style | Token Definitions | ✅ Done | ✅✅ |
 
 ---
 
-*Last updated: March 20, 2026*
+## 📖 How to Read This Index
+
+Each skill listing includes:
+- **File name & path** - Where to find it
+- **Brief description** - What it covers
+- **Status** - Done ✅ or Coming *soon...
+- **AI-Ready badge** - If optimized for AI agents
+
+---
+
+## 🤖 For AI Agents
+
+When refactoring a project, use this path:
+
+1. **Start:** [Frontend/Style/AI-AGENT-GUIDE.md](./frontend/style/AI-AGENT-GUIDE.md)
+2. **Reference:** [Frontend/Style/IKIGAI-admin-style.md](./frontend/style/IKIGAI-admin-style.md) (Section 13)
+3. **Copy:** [Frontend/Style/IKIGAI-tokens.ts](./frontend/style/IKIGAI-tokens.ts)
+4. **Validate:** [Frontend/Style/IKIGAI-style.md](./frontend/style/IKIGAI-style.md) (Sections 9-10)
+5. **Execute:** Follow checklist for 99%+ compliance
+
+---
+
+*Last updated: March 20, 2026*  
+*Total Skills: 4 (3 AI-Ready)*  
+*Compliance Target: 99%+*

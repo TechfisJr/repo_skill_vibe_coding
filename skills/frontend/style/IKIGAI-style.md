@@ -106,7 +106,291 @@ If you are deciding between two options:
 
 ---
 
-## 7) Scope
+## 7) AI Agent Guidelines for Layout Changes
+
+### How Agents Should Approach Layout Refactoring
+
+#### Step 1: Analyze Current Layout
+```
+Before touching code:
+✓ Read the current page structure (grid, flex, card arrangement)
+✓ Understand the data flow and user task
+✓ Identify inefficiencies (scroll depth, clustering, navigation)
+✓ Map all colors, spacing, and radius used
+```
+
+#### Step 2: Check Token Compliance
+```javascript
+// Verify alignment with locked tokens
+function validateCurrentLayout() {
+  // Extract all used colors
+  // Check: Are they from the palette? YES/NO
+  
+  // Extract all spacing values
+  // Check: Are they 4, 8, 12, 16, 24, 32, 40? YES/NO
+  
+  // Extract all border-radius values
+  // Check: Are they 6, 8, 10, 12, 16, 24? YES/NO
+  
+  // Extract all transitions
+  // Check: Are they all .2s? YES/NO
+  
+  // Extract font-family
+  // Check: Is it SVN-Gilroy globally? YES/NO
+}
+```
+
+#### Step 3: Design New Layout (Keep Tokens)
+```
+When redesigning layout:
+✓ Do NOT change colors (use same palette)
+✓ Do NOT change spacing scale (use same 8px multiples)
+✓ Do NOT change border radius (use same 6-24px set)
+✓ Do CHANGE grid columns, card order, section arrangement
+✓ Do OPTIMIZE for user workflow/admin efficiency
+✓ Do MAINTAIN responsiveness
+```
+
+#### Step 4: Implement Carefully
+```typescript
+// Template for layout changes
+const NewLayoutPage = () => {
+  const theme = useTheme();
+  
+  return (
+    <Box sx={{
+      display: 'grid',
+      gridTemplateColumns: { xs: '1fr', lg: '2fr 1fr' }, // Flexible grid
+      gap: 3, // LOCKED VALUE (12px)
+      p: 4,   // LOCKED VALUE (16px)
+      backgroundColor: theme.palette.background.default // THEME COLOR
+    }}>
+      <MainContent /> {/* Can reorganize */}
+      <Sidebar />     {/* Can reorganize */}
+    </Box>
+  );
+};
+```
+
+#### Step 5: Validate Before Submit
+```
+Checklist before pushing code:
+□ All colors from theme.palette
+□ All spacing from {4, 8, 12, 16, 24, 32, 40}
+□ All radius from {6, 8, 10, 12, 16, 24}
+□ All transitions 0.2s ease
+□ Font still SVN-Gilroy globally
+□ No custom shadows (use theme.shadows)
+□ No hardcoded hex values
+□ Components use MUI or approved custom components
+□ Responsive breakpoints work correctly
+```
+
+---
+
+## 8) Common Layout Patterns (Agent-Friendly)
+
+### Pattern 1: Single Column → Two Column
+```typescript
+// BEFORE (Single column, scroll heavy)
+<Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+  <FilterCard />
+  <DataTable />
+  <RelatedInfo />
+</Box>
+
+// AFTER (Two columns, better space usage)
+<Box sx={{
+  display: 'grid',
+  gridTemplateColumns: { xs: '1fr', lg: '300px 1fr' },
+  gap: 3
+}}>
+  <Box>
+    <FilterCard />
+  </Box>
+  <Box>
+    <DataTable />
+    <RelatedInfo />
+  </Box>
+</Box>
+
+// TOKENS PRESERVED ✓
+// - Spacing (gap: 3) = LOCKED 12px ✓
+// - Colors, radius, transitions unchanged ✓
+```
+
+### Pattern 2: Stack → Tabs (for dense info)
+```typescript
+// BEFORE (Long scrolling page)
+<Box>
+  <SectionA />
+  <Divider />
+  <SectionB />
+  <Divider />
+  <SectionC />
+</Box>
+
+// AFTER (Tabbed view)
+<Box>
+  <Tabs>
+    <Tab label="Overview"><SectionA /></Tab>
+    <Tab label="Details"><SectionB /></Tab>
+    <Tab label="Related"><SectionC /></Tab>
+  </Tabs>
+</Box>
+
+// TOKENS PRESERVED ✓
+// All tab colors, spacing, transitions unchanged ✓
+```
+
+### Pattern 3: Grid Rearrangement
+```typescript
+// BEFORE (4-item grid, too wide)
+<Box sx={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  gap: 2
+}}>
+
+// AFTER (Responsive grid)
+<Box sx={{
+  display: 'grid',
+  gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' },
+  gap: 2  // LOCKED SPACING (8px)
+}}>
+
+// TOKENS PRESERVED ✓
+```
+
+---
+
+## 9) Layout Validation Checklist for Agents
+
+Run this before submitting layout changes:
+
+```typescript
+class LayoutValidator {
+  // 1. Color Compliance
+  checkColors() {
+    const usedColors = extractColorsFromCSS();
+    const allowedPalette = [
+      '#5569ff', '#0e4831', '#afc932', '#6E759F',
+      '#57CA22', '#FFA319', '#FF1943', '#33C2FF',
+      '#f2f5f9', '#ffffff', '#ddd'
+    ];
+    return usedColors.every(color => allowedPalette.includes(color));
+  }
+
+  // 2. Spacing Compliance
+  checkSpacing() {
+    const usedSpacing = extractSpacingFromCSS();
+    const allowedScale = [4, 8, 12, 16, 24, 32, 40];
+    return usedSpacing.every(val => 
+      allowedScale.includes(parseInt(val))
+    );
+  }
+
+  // 3. Border Radius Compliance
+  checkRadius() {
+    const usedRadius = extractRadiusFromCSS();
+    const allowed = ['6px', '8px', '10px', '12px', '16px', '24px'];
+    return usedRadius.every(r => allowed.includes(r));
+  }
+
+  // 4. Transition Compliance
+  checkTransitions() {
+    const usedTransitions = extractTransitionsFromCSS();
+    return usedTransitions.every(t => 
+      t.includes('0.2s') || t.includes('.2s')
+    );
+  }
+
+  // 5. Font Compliance
+  checkFont() {
+    return getGlobalFont() === 'SVN-Gilroy';
+  }
+
+  // 6. Shadow Compliance
+  checkShadows() {
+    const customShadows = extractCustomShadows();
+    return customShadows.length === 0; // All from theme
+  }
+
+  runAll() {
+    return {
+      colorsOK: this.checkColors(),
+      spacingOK: this.checkSpacing(),
+      radiusOK: this.checkRadius(),
+      transitionsOK: this.checkTransitions(),
+      fontOK: this.checkFont(),
+      shadowsOK: this.checkShadows(),
+      
+      isCompliant: () => 
+        Object.values(this).every(v => v === true)
+    };
+  }
+}
+```
+
+---
+
+## 10) AI Agent Quick Reference
+
+### To Apply This Style System Across Project:
+
+1. **Import Tokens** (from IKIGAI-admin-style.md Section 13)
+   ```typescript
+   // Copy-paste token definitions
+   export const THEME_COLORS = { ... };
+   export const SPACING = { ... };
+   export const BORDER_RADIUS = { ... };
+   ```
+
+2. **Update theme.ts** (or equivalent)
+   ```typescript
+   // Replace all hardcoded values with token references
+   theme.palette.primary.main = THEME_COLORS.primary;
+   theme.palette.spacing.unit = 4;
+   // ... etc
+   ```
+
+3. **Refactor Components** (batch processing)
+   ```
+   For each component:
+   - Search for hardcoded colors → Replace with theme
+   - Search for arbitrary spacing → Replace with scale
+   - Search for custom radius → Replace with allowed set
+   - Search for other transitions → Lock to .2s
+   - Search for custom shadows → Use theme.shadows
+   ```
+
+4. **Refactor Pages** (layout preservation)
+   ```
+   For each page:
+   - Analyze current grid/flex structure
+   - Identify inefficiencies (from Section 8 patterns)
+   - Apply new layout (keeping all tokens) 
+   - Validate using Section 9 checklist
+   ```
+
+5. **Validate Project**
+   ```
+   - Run LayoutValidator on all files
+   - Check for 0% hardcoded colors
+   - Check for 100% compliant spacing
+   - Generate compliance report
+   ```
+
+---
+
+## 11) Scope
 - Applies to all new screens and refactored screens.
-- This document does **not replace** the original design system; it only defines a “flexible layout” mode.
-- Original source of truth: `style.md`
+- This document does **not replace** the original design system; it only defines a "flexible layout" mode.
+- Original source of truth: IKIGAI-admin-style.md (see Section 13 for All Tokens)
+
+---
+
+**Last Updated**: 2026-03-20  
+**Status**: Layout-Flexible, Token-Locked, AI-Ready  
+**Version**: 2.0 (AI Agent Edition)  
+**Authority**: Senior Design System Architect
