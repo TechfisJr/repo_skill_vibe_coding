@@ -7,7 +7,7 @@ Design system references and style guides for frontend projects.
 ## Skills in This Category
 
 ### FE-CREDIT Style Guide
-**File:** [`FE-CREDIT-style-guide.md`](./FE-CREDIT-style-guide.md)
+**File:** [`FE-CREDIT-style-guide.md`](./FE-CREDIT-style.md)
 
 A comprehensive, english-translated style guide for the FE Credit partner interface. Includes:
 
